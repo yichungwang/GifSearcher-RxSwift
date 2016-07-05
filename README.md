@@ -1,5 +1,5 @@
 # GifSearcher
-Swift / iOS Gif Search App with Giphy API
+Swift / iOS Gif Search App with Giphy API + RxSwift
 
 About:
 
