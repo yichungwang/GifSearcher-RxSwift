@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BD3A776E1D2C1BA7005CD817 /* GifNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A776D1D2C1BA7005CD817 /* GifNetworkModel.swift */; };
 		BD3A77701D2C1BB5005CD817 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3A776F1D2C1BB5005CD817 /* ReachabilityService.swift */; };
+		BD700A8B1D2C5DA5006BE2ED /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD700A8A1D2C5DA5006BE2ED /* ActivityIndicator.swift */; };
 		BDE8ED181D28B31600CB0F2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE8ED171D28B31600CB0F2A /* AppDelegate.swift */; };
 		BDE8ED1A1D28B31600CB0F2A /* GifMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE8ED191D28B31600CB0F2A /* GifMainViewController.swift */; };
 		BDE8ED1D1D28B31600CB0F2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDE8ED1B1D28B31600CB0F2A /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		BD3A776D1D2C1BA7005CD817 /* GifNetworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifNetworkModel.swift; sourceTree = "<group>"; };
 		BD3A776F1D2C1BB5005CD817 /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
+		BD700A8A1D2C5DA5006BE2ED /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		BDE8ED141D28B31600CB0F2A /* GifSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GifSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDE8ED171D28B31600CB0F2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDE8ED191D28B31600CB0F2A /* GifMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifMainViewController.swift; sourceTree = "<group>"; };
@@ -93,17 +95,17 @@
 			children = (
 				BD3A776D1D2C1BA7005CD817 /* GifNetworkModel.swift */,
 				BDE8ED511D28B4CF00CB0F2A /* GifModel.swift */,
-				BD3A776C1D2C1B72005CD817 /* ReachabilityService */,
 			);
 			name = Gif;
 			sourceTree = "<group>";
 		};
-		BD3A776C1D2C1B72005CD817 /* ReachabilityService */ = {
+		BD3A776C1D2C1B72005CD817 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				BD700A8A1D2C5DA5006BE2ED /* ActivityIndicator.swift */,
 				BD3A776F1D2C1BB5005CD817 /* ReachabilityService.swift */,
 			);
-			name = ReachabilityService;
+			name = Service;
 			sourceTree = "<group>";
 		};
 		BDE8ED0B1D28B31600CB0F2A = {
@@ -132,6 +134,7 @@
 				BD3A776B1D2C1B58005CD817 /* Gif */,
 				BDE8ED471D28B3CF00CB0F2A /* ViewController */,
 				BDE8ED461D28B3C800CB0F2A /* CollectionView */,
+				BD3A776C1D2C1B72005CD817 /* Service */,
 				BDE8ED171D28B31600CB0F2A /* AppDelegate.swift */,
 				BDE8ED561D28B4DB00CB0F2A /* Constants.swift */,
 				BDE8ED1B1D28B31600CB0F2A /* Main.storyboard */,
@@ -315,6 +318,7 @@
 				BDE8ED1A1D28B31600CB0F2A /* GifMainViewController.swift in Sources */,
 				BD3A776E1D2C1BA7005CD817 /* GifNetworkModel.swift in Sources */,
 				BDE8ED571D28B4DB00CB0F2A /* Constants.swift in Sources */,
+				BD700A8B1D2C5DA5006BE2ED /* ActivityIndicator.swift in Sources */,
 				BDE8ED181D28B31600CB0F2A /* AppDelegate.swift in Sources */,
 				BDE8ED4F1D28B4B900CB0F2A /* UIViewContoller+Extension.swift in Sources */,
 				BDE8ED4B1D28B43900CB0F2A /* GifCollectionViewLayout.swift in Sources */,

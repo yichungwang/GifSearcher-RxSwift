@@ -32,17 +32,26 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsE-d1-wsx">
+                                <rect key="frame" x="279" y="107.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QXO-BA-7Uh" firstAttribute="top" secondItem="wsE-d1-wsx" secondAttribute="bottom" constant="-64" id="9a0-aF-4E6"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QXO-BA-7Uh" secondAttribute="bottom" id="ElC-sT-IfP"/>
                             <constraint firstAttribute="trailing" secondItem="QXO-BA-7Uh" secondAttribute="trailing" id="cPh-p7-KhE"/>
                             <constraint firstItem="QXO-BA-7Uh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="sC8-0h-Unl"/>
+                            <constraint firstItem="wsE-d1-wsx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="utW-mN-ruy"/>
                             <constraint firstItem="QXO-BA-7Uh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="z0P-2v-D36"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="07f-ov-qME"/>
                     <connections>
+                        <outlet property="NoResultsLabel" destination="wsE-d1-wsx" id="6hK-96-8Vf"/>
                         <outlet property="collectionView" destination="QXO-BA-7Uh" id="uwf-WN-0nl"/>
                     </connections>
                 </viewController>
