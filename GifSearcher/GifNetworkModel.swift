@@ -25,6 +25,7 @@ class GifNetworkModel {
     
     var delegate: GifNetworkModelDelegate!
     var rx_gifs: Driver<[GifModel]>!
+    let activityIndicator = ActivityIndicator()
     private var searchTerms: Driver<String>
     private let baseURL = "https://api.giphy.com/"
     private let giphyAPIKey = "dc6zaTOxFJmzC"
@@ -108,6 +109,8 @@ class GifNetworkModel {
             .requestJSON(.GET, self.baseURL + ((terms == "") ? "v1/gifs/trending" : "v1/gifs/search"), parameters: ["api_key" : self.giphyAPIKey, "limit" : "\(self.limit)", "offset" : "\(self.currentOffset)", "rating": ((terms == "") ? "" : Constants.preferredSearchRating), "q" : terms], encoding: .URL, headers: nil)
             .retry(3)
             .debug()
+            // track sequence computation from RXSwift example
+            .trackActivity(self.activityIndicator)
             // make sure the request don't block UI
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .map { (response, json) -> SearchGifsResponse in
@@ -123,7 +126,7 @@ class GifNetworkModel {
                     return .Gifs(gifs: [])
                 }
             }
-            // retryOnBecomesReachable is extension from RXSwift example
+            // retryOnBecomesReachable from RXSwift example
             .retryOnBecomesReachable(.ServiceOfflineOrError , reachabilityService: reachabilityService)
         
     }

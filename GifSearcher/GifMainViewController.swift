@@ -15,13 +15,15 @@ import Alamofire
 class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectionViewLayoutDelegate, GifNetworkModelDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var noResultsLabel: UILabel!
     private var searchBar: UISearchBar!
     private var reachability: NetworkReachabilityManager!
     private let disposeBag = DisposeBag()
     private var gifNetworkModel: GifNetworkModel!
     private var gifModels = [GifModel]()
+    private var loading: Bool = true
     
-    // to determine when to load more cells
+    // determine when to load more cells
     static let startLoadingOffset: CGFloat = 40.0
     static func shouldLoadMore(contentOffset: CGPoint, collectionView: UICollectionView) -> Bool {
         return (contentOffset.y + collectionView.frame.size.height + startLoadingOffset > collectionView.contentSize.height) && (collectionView.contentSize.height > 0)
@@ -73,6 +75,9 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
             }
         }
         
+        noResultsLabel.text = ""
+        noResultsLabel.textColor = UIColor.lightGrayColor()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -90,6 +95,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
     
     func setupRx() {
         
+        // navigation bar title
         searchBar
             .rx_text
             .subscribeNext({string in
@@ -104,7 +110,8 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
             .addDisposableTo(disposeBag)
         
         let searchTerms = searchBar
-            .rx_text.asDriver()
+            .rx_text
+            .asDriver()
             .throttle(0.5)
             .distinctUntilChanged()
         
@@ -117,6 +124,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
         gifNetworkModel = GifNetworkModel.init(withNameObservable: searchTerms, loadMoreObservable: loadMoreTrigger)
         gifNetworkModel.delegate = self
         
+        // API result bind to collection view data source
         gifNetworkModel
             .rx_gifs
             .drive(collectionView.rx_itemsWithCellFactory) { (cv, i, gif) in
@@ -126,6 +134,26 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
             }
             .addDisposableTo(disposeBag)
         
+        // If it's making API request
+        gifNetworkModel
+            .activityIndicator
+            .skip(1)
+            .driveNext({ [weak self] bool in
+                self?.loading = bool
+            }).addDisposableTo(disposeBag)
+        
+        // If there's no result or it's loading
+        collectionView
+            .rx_observe(CGSize.self, "contentSize")
+            .subscribeNext({ size in
+                if size?.height == 0 {
+                    self.noResultsLabel.text = (self.loading) ? "LOADING..." : "NO RESULTS FOUND."
+                } else {
+                    self.noResultsLabel.text = ""
+                }
+            }).addDisposableTo(disposeBag)
+        
+        // Dismiss keyboard on scrolling
         collectionView
             .rx_contentOffset
             .subscribeNext { offset in
@@ -136,6 +164,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
             }
             .addDisposableTo(disposeBag)
         
+        // Dismiss keyboard on tapping cell
         collectionView
             .rx_itemSelected
             .subscribeNext { indexPath in
@@ -196,7 +225,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
     
     // MARK: GifCollectionViewLayout Delegate
     
-    func collectionView(collectionView: UICollectionView, heightForGifAtIndexPath indexPath: NSIndexPath, fixedWidth: CGFloat) -> CGFloat {
+    func collectionView(collectionView: UICollectionView, heightForGifAtIndexPath indexPath: NSIndexPath, fixedWidth: CGFloat) -> CGFloat { // calculate gif height for cell
         let gif = gifModels[indexPath.item]
         let gifHeight = gif.height * fixedWidth / gif.width
         return gifHeight
@@ -204,7 +233,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
     
     // MARK: GifNetworkModel Delegate
     
-    func shouldUpdateGifModels(gifmodels: [GifModel]) {
+    func shouldUpdateGifModels(gifmodels: [GifModel]) { // update current gifs
         gifModels = gifmodels
     }
     
