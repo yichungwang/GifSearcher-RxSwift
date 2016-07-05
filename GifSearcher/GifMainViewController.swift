@@ -156,7 +156,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
         case .Portrait, .PortraitUpsideDown:
             noInternetOverlay.frame = CGRectMake(0, 64 + 44, ((Constants.screenHeight < Constants.screenWidth) ? Constants.screenHeight : Constants.screenWidth), 40)
         case .LandscapeLeft, .LandscapeRight:
-            noInternetOverlay.frame = CGRectMake(0, 44 + ((UIDevice.currentDevice().userInterfaceIdiom == .Pad) ? 64 : 32), ((Constants.screenHeight > Constants.screenWidth) ? Constants.screenHeight : Constants.screenWidth), 40)
+            noInternetOverlay.frame = CGRectMake(0, 44 + CGRectGetHeight(self.navigationController!.navigationBar.frame) + (UIDevice.currentDevice().userInterfaceIdiom == .Pad ? 20 : 0), ((Constants.screenHeight > Constants.screenWidth) ? Constants.screenHeight : Constants.screenWidth), 40)
         default:
             break
         }
@@ -167,7 +167,7 @@ class GifMainViewController: UIViewController, UISearchBarDelegate, GifCollectio
         case .Portrait, .PortraitUpsideDown:
             searchBar.frame = CGRectMake(0, 64, ((Constants.screenHeight < Constants.screenWidth) ? Constants.screenHeight : Constants.screenWidth), 44)
         case .LandscapeLeft, .LandscapeRight:
-            searchBar.frame = CGRectMake(0, (UIDevice.currentDevice().userInterfaceIdiom == .Pad) ? 64 : 32, ((Constants.screenHeight > Constants.screenWidth) ? Constants.screenHeight : Constants.screenWidth), 44)
+            searchBar.frame = CGRectMake(0, CGRectGetHeight(self.navigationController!.navigationBar.frame) + (UIDevice.currentDevice().userInterfaceIdiom == .Pad ? 20 : 0), ((Constants.screenHeight > Constants.screenWidth) ? Constants.screenHeight : Constants.screenWidth), 44)
         default:
             break
         }
